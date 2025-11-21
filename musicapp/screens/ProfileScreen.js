@@ -1,10 +1,10 @@
 // screens/ProfileScreen.js
 import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
+export default function ProfileScreen({ navigation }) {
 
-export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       {/* Profile Image */}
@@ -23,25 +23,32 @@ export default function ProfileScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Options */}
+      {/* Menu Options */}
       <View style={styles.menuSection}>
-        <MenuItem icon="heart" title="Favorite Songs" />
-        <MenuItem icon="settings" title="Settings" />
-        <MenuItem icon="privacy-tip" title="Privacy" />
-        <MenuItem icon="help-circle" title="Help & Support" />
+        <MenuItem icon="heart" title="Favorite Songs" onPress={() => Alert.alert("Favorites")} />
+        <MenuItem icon="settings" title="Settings" onPress={() => Alert.alert("Settings")}/>
+        <MenuItem icon="lock" title="Privacy" onPress={() => Alert.alert("Privacy")} />
+        <MenuItem icon="help-circle" title="Help & Support" onPress={() => Alert.alert("Help & Support")} />
+
+        {/* Feedback Navigation */}
+        <MenuItem
+          icon="message-circle"
+          title="Feedback"
+          onPress={() => navigation.navigate("Feedback")}
+        />
       </View>
 
       {/* Logout */}
-      <TouchableOpacity style={styles.logoutBtn}>
+      <TouchableOpacity style={styles.logoutBtn} onPress={() => Alert.alert("Logout", "Logging out...")}>
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
-function MenuItem({ icon, title }) {
+function MenuItem({ icon, title, onPress }) {
   return (
-    <TouchableOpacity style={styles.menuItem}>
+    <TouchableOpacity style={styles.menuItem} onPress={onPress}>
       <Feather name={icon} size={22} color="#fff" />
       <Text style={styles.menuTitle}>{title}</Text>
       <Ionicons name="chevron-forward" size={22} color="#888" />
