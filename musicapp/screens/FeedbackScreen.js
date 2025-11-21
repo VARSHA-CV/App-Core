@@ -39,7 +39,7 @@ export default function FeedbackScreen({ navigation }) {
       setExperience("");
       setComments("");
 
-      navigation.goBack();
+      navigation.goBack(); 
     } catch (error) {
       if (error.response) {
         console.log("Response Error:", error.response.data);
@@ -59,6 +59,11 @@ export default function FeedbackScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      {/* Back Button */}
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+        <Text style={styles.backText}>← Back</Text>
+      </TouchableOpacity>
+
       <Text style={styles.heading}>Send Feedback</Text>
 
       <TextInput
@@ -71,7 +76,7 @@ export default function FeedbackScreen({ navigation }) {
       />
 
       <TextInput
-        placeholder="Experience (Good / Bad / Satisfied)"
+        placeholder="Experience (good / satisfied / needs_improvement)"
         value={experience}
         onChangeText={setExperience}
         style={styles.input}
@@ -99,6 +104,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#121212",
     padding: 20,
+  },
+  backBtn: {
+    marginBottom: 10,
+  },
+  backText: {
+    color: "#1db954",
+    fontSize: 18,
+    fontWeight: "600",
   },
   heading: {
     fontSize: 24,
